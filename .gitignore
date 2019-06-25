@@ -1,0 +1,11 @@
+# Untracked folders #
+target/
+.settings/
+Custom Libraries/
+
+# Packages #
+*.jar
+
+# Some keys #
+dbpass.txt
+key.jks
