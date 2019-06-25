@@ -22,6 +22,7 @@ import com.x74R45.storage.handlers.ProductHandler;
 
 public class HttpsServerLauncher {
 
+	private static HttpsServer server;
 	private static final int PORT = 7474;
 	private static final int NTHREADS = 100;
 	private static final Executor exec = Executors.newFixedThreadPool(NTHREADS);
@@ -30,8 +31,8 @@ public class HttpsServerLauncher {
 		DBConnector.initialize();
 		
 		// Initialise the server
-		HttpsServer server = HttpsServer.create(new InetSocketAddress(PORT), 0);
-		SSLContext sslContext = javax.net.ssl.SSLContext.getInstance("TLS");
+		server = HttpsServer.create(new InetSocketAddress(PORT), 0);
+		SSLContext sslContext = SSLContext.getInstance("TLS");
 		
 		// Initialise the keystore
 		char[] password = "password".toCharArray();
@@ -73,5 +74,9 @@ public class HttpsServerLauncher {
 		server.start();
 		
 		System.out.println("Server has started.");
+	}
+	
+	public static void stop() {
+		server.stop(1);
 	}
 }

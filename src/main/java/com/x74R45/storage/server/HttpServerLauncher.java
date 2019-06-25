@@ -11,12 +11,13 @@ import com.x74R45.storage.handlers.ProductHandler;
 
 public class HttpServerLauncher {
 
+	private static HttpServer server;
 	private static final int PORT = 7474;
 	private static final int NTHREADS = 100;
 	private static final Executor exec = Executors.newFixedThreadPool(NTHREADS);
 	
 	public static void main(String[] args) throws Exception {
-		HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
+		server = HttpServer.create(new InetSocketAddress(PORT), 0);
 		
 		DBConnector.initialize();
 		
@@ -27,5 +28,9 @@ public class HttpServerLauncher {
 		server.start();
 		
 		System.out.println("Server has started.");
+	}
+	
+	public static void stop() {
+		server.stop(1);
 	}
 }
